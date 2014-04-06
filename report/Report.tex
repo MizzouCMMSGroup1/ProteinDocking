@@ -24,7 +24,7 @@
 \definecolor{mylilas}{RGB}{170,55,241}
 
 
-\title{Ab-initio protein modeling using fragment matching, simulated annealing and an energy function}
+\title{Comparison of protein-protein docking prediction and optimization methods}
 \author{Caiwei Wang, Xiaokai Qian, Sean Lander, \\Haipei Fan, Puneet Gaddam, Brett Koonce\\\\University of Missouri - Columbia}
 
 \date{April 7, 2014}
@@ -38,7 +38,12 @@
 \section{Abstract}
 
 
+
 \section{Introduction}
+
+
+
+\section{Methods}
 
 
 
@@ -47,22 +52,71 @@
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=\textwidth]{pipeline}
-\caption{An overview of the TFPy pipeline}
+\caption{An overview of the comparison pipeline}
 \label{Fig:blosum}
 \end{center}
 \end{figure}
 
 \begin{enumerate}
+\item Decoy Creation
 
-\end{steps}
+\item Ranking
 
-\section{CAPRI Target goal}
+\item Optimization
+
+\item Final Selection and Scoring
+\end{enumerate}
+
+\subsection{CAPRI Target Selection}
 
 We selected the following template-free targets from the CAPRI database to build a model for: T53, T50.
+
+\subsection{Pre-Processing}
+
+\subsection{Decoy Creation}
+
+\begin{enumerate}
+
+\item Hex
+
+\item ClusPro
+
+\item ZDOCK
+
+\end{enumerate}
+
+\subsection{Decoy Optimization}
+
+\begin{enumerate}
+
+\item Decoy Ranking
+
+\item Optimization
+
+\end{enumerate}
 
 
 
 \section{Results}
+
+\subsection{Interface Creation}
+
+\subsection{Scoring Methods - RMSD vs RosettaDock}
+
+\begin{enumerate}
+
+\item Before Optimization
+
+\item After Optimization
+
+\end{enumerate}
+
+\subsection{Visualization}
+
+
+
+\section{Conclusion}
+
 
 
 \section{Citations}
