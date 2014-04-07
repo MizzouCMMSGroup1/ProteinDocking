@@ -1,10 +1,10 @@
 from Bio.PDB import *
 import sys
 
-def parse_pdb_surfaces(name='complex.1.pdb', search_radius=5.0):
+def parse_pdb_surfaces(name='input.pdb', search_radius=5.0):
 
     parser=PDBParser()
-    structure=parser.get_structure('model', 'complex.1.pdb')
+    structure=parser.get_structure('model', name)
 
     model=structure[0]
     chainA = model['A']
@@ -37,7 +37,7 @@ def main():
         print "testing protein: ", i
         residues = parse_pdb_surfaces('complex.'+str(i)+'.pdb', 5.0)
         
-        print "surface residues:"
+        print "surface residues: ", len(residues)
         for usr in sorted(residues, key=lambda x: x[1]):
             print usr
 
