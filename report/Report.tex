@@ -130,7 +130,7 @@ While we can (and do) score the combined protein strands as a whole, we would al
     \FOR j:=1 \TO length(chainB) \STEP 1 \DO
 	b := PDB[ATOM[j]
     \IF (distance(a,b) < 5 angstrom) \DO
-        addToListOfInterfaceResidues(PARENT_RESIDUE[a], PARENT_RESIDUE[b])      
+addToListOfInterfaceResidues(PARENT_RESIDUE[a], PARENT_RESIDUE[b])
     \END
    \END
 \END
@@ -139,7 +139,6 @@ While we can (and do) score the combined protein strands as a whole, we would al
 Then, we simply create a copy of the original PDB file using only the residues in our interface list for the purposes of scoring.  Our actual code is slightly different than the above.  First, we initially build a k-d tree of the locations of each atom in our target protein in order to speed up the distance search process significantly.  Second, we use a unique set for our collection of interface residues in order to avoid duplicate effort.\\
 
 Finally, we simply run this script on each candidate PDB file in order to generate a collection of interface decoys for scoring.
-
 
 \subsection{Scoring Methods - RMSD vs RosettaDock}
 
@@ -159,7 +158,93 @@ Finally, we simply run this script on each candidate PDB file in order to genera
 
 
 
-\section{Conclusion}
+\section{Evaluation}
+
+\subsection{Non-optimized scores}
+
+After we generate decoys from three servers, we pick the best decoy as our evaluation target. We use TM-score and RMSD(overall) as our score functions. The following are our two result tables:
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|r|}
+\multicolumn{4}{c}{T50} \\
+    \hline
+      & ClusPro & ZDock & Hex \\ \hline
+    TM-Score & 0.9941 & 0.1490 & 0.9941 \\ \hline
+    RMSD & 0.541 & 25.304 & 0.514 \\
+    \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|r|}
+\multicolumn{4}{c}{T53} \\
+    \hline
+      & ClusPro & ZDock & Hex \\ \hline
+    TM-Score & 0.2418 & 0.8420 & 0.2418 \\ \hline
+    RMSD & 8.712 & 16.637 & 8.712 \\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+\subsection{Optimized scores}
+
+After that, we used Rosettadock to optimize our decoys from three servers. Since the format of ZDock results is not acceptable for Rossettadock, we only optimize decoys of Hex and Cluspro. The next two table show these results (we only present the top structure). Very interesting, there is no improvement. We may figure out this problem in further work.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|r|}
+\multicolumn{3}{c}{T50} \\
+    \hline
+      & ClusPro & Hex \\ \hline
+    TM-Score & 0.9941 & 0.9941 \\ \hline
+    RMSD & 0.514 & 0.514 \\
+    \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|r|}
+\multicolumn{3}{c}{T53} \\
+    \hline
+      & ClusPro & Hex \\ \hline
+    TM-Score & 0.2418 & 0.2418 \\ \hline
+    RMSD & 8.712 & 8.712 \\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+
+
+\subsection{Interface scores}
+
+Since overall rmsd can not reflect the quality of the complex very well, we tried to compare the interfaces of decoys with the one of native structure. The next two tables show results. From these two tables, they indicate that good overall RMSD can’t promise a good interface structure.
+
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|r|}
+\multicolumn{4}{c}{T50} \\
+    \hline
+      & ClusPro & ZDock & Hex \\ \hline
+    TM-Score & 0.1890 & 0.0291 & 0.1920 \\ \hline
+    RMSD & 0.328 & 20.319 & 0.334 \\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|r|}
+\multicolumn{4}{c}{T53} \\
+    \hline
+      & ClusPro & ZDock & Hex \\ \hline
+    TM-Score & 0.0592 & 0.0979 & 0.0557 \\ \hline
+    RMSD & 2.894 & 3.854 & 3.858 \\
+    \hline
+    \end{tabular}
+\end{center}
+
+
 
 
 
