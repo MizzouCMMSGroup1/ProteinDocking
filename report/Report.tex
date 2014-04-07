@@ -122,6 +122,23 @@ ZDOCK uses a mixture of Fast Fourier Transform and data-driven scoring/ranking i
 
 \subsection{Interface Creation}
 
+While we can (and do) score the combined protein strands as a whole, we would also like to score only those regions of the proteins that are in contact, better known as the interface.  In order to do this, we wrote script that did the following:\\
+
+\begin{program}
+  \FOR i:=1 \TO length(chainA) \STEP 1 \DO
+	a := PDB[ATOM[i]]
+    \FOR j:=1 \TO length(chainB) \STEP 1 \DO
+	b := PDB[ATOM[j]
+    \IF (distance(a,b) < 5 angstrom) \DO
+        addToListOfInterfaceResidues(PARENT_RESIDUE[a], PARENT_RESIDUE[b])      
+    \END
+   \END
+\END
+\end{program}
+
+Then, we simply create a copy of the original PDB file using only the residues in our interface list for the purposes of scoring.  Our actual code is slightly different than the above.  First, we initially build a k-d tree of the locations of each atom in our target protein in order to speed up the distance search process significantly.  Second, we use a unique set for our collection of interface residues in order to avoid duplicate effort.\\
+
+Finally, we simply run this script on each candidate PDB file in order to generate a collection of interface decoys for scoring.
 
 
 \subsection{Scoring Methods - RMSD vs RosettaDock}
