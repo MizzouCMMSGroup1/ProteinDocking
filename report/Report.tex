@@ -105,17 +105,6 @@ After signing up for an account and logging into the server, you can create a do
 
 ZDOCK uses a mixture of Fast Fourier Transform and data-driven scoring/ranking in order to create and sorts its decoy. While this allows for very fast decoy creation, it results in a stochastic algorithm, so multiple runs will always generate the same results. The ZDOCK server produces 500 decoys on a run, but only the top 10 of those are available for download, making it hard to build up an appropriately sized sample group.
 
-\subsection{Decoy Optimization}
-
-\begin{enumerate}
-
-\item Decoy Ranking
-
-\item Optimization
-
-\end{enumerate}
-
-
 
 \section{Results}
 
@@ -141,65 +130,35 @@ Then, we simply create a copy of the original PDB file using only the residues i
 
 Finally, we simply run this script on each candidate PDB file in order to generate a collection of interface decoys for scoring.
 
-\subsection{Scoring Methods - RMSD vs RosettaDock}
+\subsection{Scoring Methods - RosettaDock}
 
-\begin{enumerate}
+RosettaDock is a structure-prediction-based program, which searches the rigid-body and side-chain conformational space of two interacting proteins to find a minimum free-energy complex structure. RosettaDock has been highly successful in the blind prediction challenge of the Critical Assessment of Predicted Interactions (CAPRI), producing several structures that were the most atomically accurate models submitted by any group in the CAPRI challenge. \\
 
-\item Before Optimization
-
-
-
-\item After Optimization
-
-
-
-\end{enumerate}
-
-\subsection{Visualization}
+Rosettadock server identifies low-energy conformations of a protein-protein interaction near a given starting configuration by optimizing rigid-body orientation and side-chain conformations. The server requires two protein structures as inputs and a starting location for the search. RosettaDock generates 1000 independent structures, and the server returns pictures, coordinate files and detailed scoring information for the 10 top-scoring models. A plot of the total energy of each of the 1000 models created shows the presence or absence of an energetic binding funnel. RosettaDock has been validated on the docking benchmark set and through the Critical Assessment of Predicted Interactions blind prediction challenge.
 
 \begin{figure}
 \centering
 
-\begin{minipage}{.50\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{t50_initial}
-  \captionof{figure}{T50 Initial}
-  \label{fig:test1}
+\begin{minipage}{1.00\textwidth}
 
   \centering
-  \includegraphics[width=.9\linewidth]{t50_native}
-  \captionof{figure}{T50 Native}
+  \includegraphics[width=.9\linewidth]{rosetta_decoys}
+  \captionof{figure}{Rosetta Decoys}
   \label{fig:test2}
 
   \centering
-  \includegraphics[width=.9\linewidth]{t50_decoy}
-  \captionof{figure}{T50 Decoy}
+  \includegraphics[width=.9\linewidth]{rosetta_interface_rmsd}
+  \captionof{figure}{Rosetta Interface RMSD scores}
+  \label{fig:test2}
+  
+  \centering
+  \includegraphics[width=.9\linewidth]{rosetta_rmsd}
+  \captionof{figure}{Rosetta RMSD overall scores}
   \label{fig:test2}
 \end{minipage}
 
 \end{figure}
 
-\begin{figure}
-\centering
-
-\begin{minipage}{.50\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{t53_initial}
-  \captionof{figure}{T53 Initial}
-  \label{fig:test1}
-
-  \centering
-  \includegraphics[width=.9\linewidth]{t53_native}
-  \captionof{figure}{T53 Native}
-  \label{fig:test2}
-
-  \centering
-  \includegraphics[width=.9\linewidth]{t53_decoy}
-  \captionof{figure}{T53 Decoy}
-  \label{fig:test2}
-\end{minipage}
-
-\end{figure}
 
 \section{Evaluation}
 
@@ -257,8 +216,6 @@ After that, we used Rosettadock to optimize our decoys from three servers. Since
 \end{center}
 
 
-
-
 \subsection{Interface scores}
 
 Since overall rmsd can not reflect the quality of the complex very well, we tried to compare the interfaces of decoys with the one of native structure. The next two tables show results. From these two tables, they indicate that good overall RMSD can’t promise a good interface structure.
@@ -295,6 +252,59 @@ Since overall rmsd can not reflect the quality of the complex very well, we trie
 
 We thank the following tools and papers: \\\\
 
+Lyskov S., Gray J.J. "The RosettaDock server for local protein-protein docking" Nucleic Acids Research 36 (Web Server Issue), W233-W238 (2008).\\
+
+Chaudhury S, Berrondo M, Weitzner BD, Muthu P, Bergman H, Gray JJ. "Benchmarking and analysis of protein docking performance in Rosetta v3.2" PLoS One. 2011;6(8):e22477. doi: 10.1371/journal.pone.0022477. Epub 2011 Aug 2.\\
+
+Lyskov S, Chou FC, Conchúir SÓ, Der BS, Drew K, Kuroda D, Xu J, Weitzner BD, Renfrew PD, Sripakdeevong P, Borgo B, Havranek JJ, Kuhlman B, Kortemme T, Bonneau R, Gray JJ, Das R., "Serverification of Molecular Modeling Applications: The Rosetta Online Server That Includes Everyone (ROSIE)". PLoS One. 2013 May 22;8(5):e63906. doi: 10.1371/journal.pone.0063906. Print 2013.
+
+
+
+\section{Visualization}
+
+\begin{figure}
+\centering
+
+\begin{minipage}{.50\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{t50_initial}
+  \captionof{figure}{T50 Initial}
+  \label{fig:test1}
+
+  \centering
+  \includegraphics[width=.9\linewidth]{t50_native}
+  \captionof{figure}{T50 Native}
+  \label{fig:test2}
+
+  \centering
+  \includegraphics[width=.9\linewidth]{t50_decoy}
+  \captionof{figure}{T50 Decoy}
+  \label{fig:test2}
+\end{minipage}
+
+\end{figure}
+
+\begin{figure}
+\centering
+
+\begin{minipage}{.50\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{t53_initial}
+  \captionof{figure}{T53 Initial}
+  \label{fig:test1}
+
+  \centering
+  \includegraphics[width=.9\linewidth]{t53_native}
+  \captionof{figure}{T53 Native}
+  \label{fig:test2}
+
+  \centering
+  \includegraphics[width=.9\linewidth]{t53_decoy}
+  \captionof{figure}{T53 Decoy}
+  \label{fig:test2}
+\end{minipage}
+
+\end{figure}
 
 
 \end{document}
