@@ -1,37 +1,46 @@
 from Bio.PDB import *
 import sys
 
-parser=PDBParser()
-structure=parser.get_structure('model', 'complex.1.pdb')
+def parse_pdb_surfaces(name='complex.1.pdb', search_radius=5.0):
 
-model=structure[0]
-chainA = model['A']
-chainB = model['B']
+    parser=PDBParser()
+    structure=parser.get_structure('model', 'complex.1.pdb')
 
-atom_list1=Selection.unfold_entities(chainA,'A')
-atom_list2=Selection.unfold_entities(chainB,'A')
+    model=structure[0]
+    chainA = model['A']
+    chainB = model['B']
 
-ns = NeighborSearch(atom_list2)
+    atom_list1=Selection.unfold_entities(chainA,'A') #A is for atom, not chain id
+    atom_list2=Selection.unfold_entities(chainB,'A')
 
-for atom in atom_list1:
-    center=atom.get_coord()
-    R=5.0
+    ns = NeighborSearch(atom_list2)
 
-    neighbor_l = ns.search(center,R)
-    residue_list = Selection.unfold_entities(neighbor_l,'R')
+    surface_residues = []
 
-    for r in residue_list:
-        print r
+    for atom in atom_list1:
+        center=atom.get_coord()
+        R=search_radius
+
+        neighbor_l = ns.search(center,R)
+        residue_list = Selection.unfold_entities(neighbor_l,'R')
+
+        for r in residue_list:
+            surface_residues += [(r.get_resname(), r.id[1])]
+
+    unique_surface_residues = set(surface_residues)
+    return unique_surface_residues
 
 
 
-# center=atom_list[0].get_coord()
-# R=5.0
-# 
-# neighbor_l=ns.search(center,R)
-# residue_list=Selection.unfold_entities(neighbor_l,'R')
-# 
-# for r in residue_list:
-#     print r
+def main():
+    for i in range(1,10+1):
+        print "testing protein: ", i
+        residues = parse_pdb_surfaces('complex.'+str(i)+'.pdb', 5.0)
+        
+        print "surface residues:"
+        for usr in sorted(residues, key=lambda x: x[1]):
+            print usr
 
-#print residue_list
+if __name__ == '__main__':
+	main()
+
