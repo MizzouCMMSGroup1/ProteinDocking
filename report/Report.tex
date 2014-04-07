@@ -130,7 +130,7 @@ While we can (and do) score the combined protein strands as a whole, we would al
     \FOR j:=1 \TO length(chainB) \STEP 1 \DO
 	b := PDB[ATOM[j]
     \IF (distance(a,b) < 5 angstrom) \DO
-addToListOfInterfaceResidues(PARENT_RESIDUE[a], PARENT_RESIDUE[b])
+addToListOfInterfaceResidues(RESIDUE[a], RESIDUE[b])
     \END
    \END
 \END
