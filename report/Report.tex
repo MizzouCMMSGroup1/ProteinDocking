@@ -84,6 +84,7 @@ The tools selected represent some of the different methods currently employed fo
 
 \subsection{Pre-Processing}
 
+In our project, we choose T50 and T53 as our targets. In T50, the given initial file contains all receptor and ligand information, so we need spilt them into two pdb files so that we can dock them. Chain A and B are the structure of the receptor and Chain C is the structure of ligand. As for T53, CAPRI only provides the structure of receptor. We are given the sequence of the ligand, so we have to predict the structure before we can dock them. In our project, we predicted the structure of ligand of T53 by MuFold server. 
 
 
 \subsection{Decoy Creation}
@@ -92,7 +93,7 @@ The tools selected represent some of the different methods currently employed fo
 
 \subsubsection{Hex}
 
-
+    Hex server is the first Fourier transform (FFT)-based protein docking server to be powered by graphics processors. Using two graphics processors simultaneously, a typical 6D docking run takes approximately 15 s, which is up to two orders of magnitude faster than conventional FFT-based docking approaches using comparable resolution and scoring functions. The server requires two protein structures in PDB format to be uploaded, and it produces a ranked list of up to 1000 docking predictions. Knowledge of one or both protein binding sites may be used to focus and shorten the calculation when such information is available. The first 20 predictions may be accessed individually, and a single file of all predicted orientations may be downloaded as a compressed multi-model PDB file. The server is publicly available and does not require any registration or identification by the user.
 
 \subsubsection{ClusPro}
 
