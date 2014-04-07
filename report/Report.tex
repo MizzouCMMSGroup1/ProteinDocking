@@ -37,11 +37,13 @@
 
 \section{Abstract}
 
-
+In this paper we applied three docking tools (Zdock, Cluspro and Hex) to two CAPRI targets (T50 and T53), improved prediction accuracy using docking optimization and assessed the performance using a few complementary tools (RosettaDock and RMSD). We first selected the receptor and ligand PDBs of T50 and T53. After pre-processing we created decoys using Zdock, Cluspro and Hex, and then scored and optimized them using RosettaDock. We then compared the results between before and after optimization by measuring both their RosetttaDock scores and the RMSD of the docking interface. We used these results to analyze performance across the tools we used in order to better understand the tools and how they may complement or hinder one another. Ultimately, we visualized the top model from each decoy group.
 
 \section{Introduction}
 
+Protein-protein docking is used to predict the structure of a protein complex given a receptor and a ligand. It is very useful in drug creation and disease prevention. Because the computational power needed for predictions can be high, many unique algorithms and methods have been created to both predict and score docked structures.
 
+For this method comparison we will be using three prediction servers, each of which use a variation on the Fast Fourier Transform method for prediction and their own unique methods for rankings. We then standardize these predictions using RosettaDock's scoring function. Once the top 10 are selected we will apply Rosetta's optimization method, which allows for a relaxing of side-chain constraints, before scoring and sorting them a second time. We will then use RMSD, a traditional scoring method when native conformation is known, of the predicted interface in order to analyze and compare the different methods of prediction, optimization, and scoring.
 
 \section{Methods}
 
@@ -82,13 +84,24 @@ The tools selected represent some of the different methods currently employed fo
 
 \subsection{Pre-Processing}
 
+
+
 \subsection{Decoy Creation}
+
+
 
 \subsubsection{Hex}
 
+
+
 \subsubsection{ClusPro}
 
+ClusPro is a web server which uses an automated rigid-body docking and discrimination algorithm that rapidly filters docked conformations, and ranks them based on their clustering properties. 
+
+After signing up for an account and logging into the server, you can create a docking job with a receptor and ligand by uploading the PDB files of T50 and T53. You may optionally choose what chains to use in docking. After that, you can view the queue status for the decoys completed. It will generate the number of top models you choose.
+
 \subsubsection{ZDOCK}
+
 ZDOCK uses a mixture of Fast Fourier Transform and data-driven scoring/ranking in order to create and sorts its decoy. While this allows for very fast decoy creation, it results in a stochastic algorithm, so multiple runs will always generate the same results. The ZDOCK server produces 500 decoys on a run, but only the top 10 of those are available for download, making it hard to build up an appropriately sized sample group.
 
 \subsection{Decoy Optimization}
@@ -105,7 +118,11 @@ ZDOCK uses a mixture of Fast Fourier Transform and data-driven scoring/ranking i
 
 \section{Results}
 
+
+
 \subsection{Interface Creation}
+
+
 
 \subsection{Scoring Methods - RMSD vs RosettaDock}
 
@@ -113,7 +130,11 @@ ZDOCK uses a mixture of Fast Fourier Transform and data-driven scoring/ranking i
 
 \item Before Optimization
 
+
+
 \item After Optimization
+
+
 
 \end{enumerate}
 
@@ -129,9 +150,6 @@ ZDOCK uses a mixture of Fast Fourier Transform and data-driven scoring/ranking i
 
 We thank the following tools and papers: \\\\
 
-
-
-\end{document}
 
 
 \end{document}
